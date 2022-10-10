@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codificar ou Decodificar?</title>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  background: #F78EF1 url(Imagens/fundo3.png)no-repeat top center;
+}
+
+#container{
+  display: flex;
+  width: 600px;
+  height: 570px;
+  background-color: rgba(255, 255, 255,0.3);
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-top: 35px;
+  text-align: center;
+  flex-direction: column;
+}
+
+h3{
+  display: block;
+  margin-top: 10%;
+}
+
+
+#resposta{
+  background-color: white;
+  padding: 10px 180px;
+}
+
+input{
+  margin: 10px 60px;
+}
+        
+</style>
+
+
+</head>
+<body onload="carregar()">
+
+  <div id="container">
+    <h3>Codificar ou decodificar, você escolhe:</h3>
+    <p>Escreva uma mensagem:</p>
+    <input type="text" id="input"/>
+    <div id="ajeitar">
+      <div>
+        <input type="radio" name="selecao1" onclick="myFunction()">Cifra de cesar</input>
+        <input type="radio" name="selecao1" onclick="myFunction3()" >Base 64</input>
+      </div>
+
+      <div id="myDIV1">
+        <br><br>
+        <span id="label">Incrementar: </span>
+        <button onclick="prev()">-</button>
+        <span id="numero">1</span>
+        <button onclick="next()">+</button>
+      </div>
+
+      <div id="myDIV">
+        <br><br>
+        <input  onclick="myFunction2()" type="radio" name="selec1" id=""> Codifcar
+        <input  onclick="myFunction4()" type="radio" name="selec1" id=""> Decodificar
+      </div>
+
+      <div id="myDIV2">
+        <button onclick="codificar()">Codificar</button>
+      </div>
+        
+      <div id="myDIV3">
+        <button onclick="decodificar()">Decodificar</button>
+      </div>
+      <p>Código:</p>
+      <span id="resposta"></span>
+    </div>
+  </div>
+
+
+<script>
+
+//ANIMAÇÃO DOS IMPUTS
+
+  var a = document.getElementById("myDIV1");
+  var x = document.getElementById("myDIV");
+  var y = document.getElementById("myDIV2");
+  var z = document.getElementById("myDIV3");
+
+function carregar(){
+
+    a.style.display = "none";  
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+}
+
+function myFunction() {
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    a.style.display = "block";
+  } else {
+    a.style.display = "none";  
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+  }
+}
+
+function myFunction2(){
+
+  if (y.style.display === "none") {
+      y.style.display = "block";
+      z.style.display = "none";
+  }else{
+      y.style.display = "none";
+      z.style.display = "none";
+  }
+ 
+}
+
+function myFunction3() {
+  if (x.style.display === "none" ) {
+      x.style.display = "block";
+      z.style.display = "none";
+  }else{
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none"; 
+  } 
+}
+
+function myFunction4(){
+
+
+  if (z.style.display === "none") {
+      z.style.display = "block";
+      y.style.display = "none";
+  }else{
+      y.style.display = "none";
+      z.style.display = "none";
+
+  }
+ 
+}
+</script>
+
+<script>
+//CODIFICAR
+
+            var values = new Array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+            var numero = +document.getElementById("numero").innerHTML;
+
+            function prev() {
+                if(numero > 1) {
+                    numero--;
+                    document.getElementById("numero").innerHTML = numero;
+                }
+            }
+
+            function next() {
+                if(numero < 100) {
+                    numero++;
+                    document.getElementById("numero").innerHTML = numero;
+                }
+            }
+
+            function codificar() {
+                var input = document.getElementById("input").value.toUpperCase();
+                var result = "";
+
+                for(var i = 0; i<input.length; i++){
+
+                    var posicaoDaLetraNoAlfabeto = input.charCodeAt(i)-64;
+                    var letraComDeslocamento = (posicaoDaLetraNoAlfabeto + numero) % 26;
+                    letraComDeslocamento = letraComDeslocamento == 0 ? 26 : letraComDeslocamento;
+                    result += values[letraComDeslocamento-1];
+                }
+
+                document.getElementById("resposta").innerHTML = result;
+            }
+
+</script>
+
+<script>
+  //DECODIFICAR
+  
+              var values = new Array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+              var numero = +document.getElementById("numero").innerHTML;
+  
+              function prev() {
+                  if(numero > 1) {
+                      numero--;
+                      document.getElementById("numero").innerHTML = numero;
+                  }
+              }
+  
+              function next() {
+                  if(numero < 100) {
+                      numero++;
+                      document.getElementById("numero").innerHTML = numero;
+                  }
+              }
+  
+              function decodificar() {
+                  var input = document.getElementById("input").value.toUpperCase();
+                  var result = "";
+  
+                  for(var i = 0; i<input.length; i++){
+  
+                      var posicaoDaLetraNoAlfabeto = input.charCodeAt(i)+64;
+                      var letraComDeslocamento = (posicaoDaLetraNoAlfabeto - numero) % 26;
+                      letraComDeslocamento = letraComDeslocamento == 0 ? 26 : letraComDeslocamento;
+                      result += values[letraComDeslocamento+1];
+                  }
+  
+                  document.getElementById("resposta").innerHTML = result;
+              }
+  
+  </script>
+
+<script>
+  /// BASE 64 DEUS ME AJUDA
+</script>
+
+</body>
+</html>
